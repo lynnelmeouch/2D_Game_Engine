@@ -1,0 +1,65 @@
+EnemyChase(Brain){
+
+  *(Brain):
+  | Got(A)? Rest :(Angry)
+  | Got(D)? Rest :(Happy)
+  | True ? Rest :(Normal)
+
+
+  * (Normal):
+  | Cell(F,V) & Cell(L,V) & Cell(R,V) ? 80% Move(F) / 10% Turn(L) / 10% Turn(R) :(Brain)
+  | Cell(F,V) & Cell(L,V) ? 88% Move(F) / 12% Turn(L) :(Brain)
+  | Cell(F,V) & Cell(R,V) ? 88% Move(F) / 12% Turn(R) :(Brain)
+
+  | Cell(F,V) ? Move(F) :(Brain)
+
+  | Cell(L,V) & Cell(R,V) ? 50% Turn(L) / 50% Turn(R) :(Brain)
+  | Cell(L,V) ? Turn(L) :(Brain)
+  | Cell(R,V) ? Turn(R) :(Brain)
+
+  | Cell(B,V) ? Turn(B) :(Brain)
+  | True ? Rest :(Brain)
+
+
+  * (Happy):
+  | Cell(F,V) & Cell(L,V) & Cell(R,V) ? 85% Move(F) / 8% Turn(L) / 7% Turn(R) :(Brain)
+  | Cell(F,V) & Cell(L,V) ? 90% Move(F) / 10% Turn(L) :(Brain)
+  | Cell(F,V) & Cell(R,V) ? 90% Move(F) / 10% Turn(R) :(Brain)
+
+  | Cell(F,V) ? Move(F) :(Brain)
+
+  | Cell(L,V) & Cell(R,V) ? 50% Turn(L) / 50% Turn(R) :(Brain)
+  | Cell(L,V) ? Turn(L) :(Brain)
+  | Cell(R,V) ? Turn(R) :(Brain)
+
+  | Cell(B,V) ? Turn(B) :(Brain)
+  | True ? Rest :(Brain)
+
+
+  * (Angry):
+  | Closest(@,F) & Cell(F,V) ? Move(F) :(Brain)
+
+  | Closest(@,L) & Cell(L,V) & ! Cell(F,V) ? Turn(L) :(Brain)
+  | Closest(@,R) & Cell(R,V) & ! Cell(F,V) ? Turn(R) :(Brain)
+
+  | Closest(@,L) & Cell(L,V) & Cell(F,V) ? 65% Turn(L) / 35% Move(F) :(Brain)
+  | Closest(@,R) & Cell(R,V) & Cell(F,V) ? 65% Turn(R) / 35% Move(F) :(Brain)
+
+  | Cell(F,V) & Cell(L,V) & Cell(R,V) ? 88% Move(F) / 6% Turn(L) / 6% Turn(R) :(Brain)
+  | Cell(F,V) & Cell(L,V) ? 92% Move(F) / 8% Turn(L) :(Brain)
+  | Cell(F,V) & Cell(R,V) ? 92% Move(F) / 8% Turn(R) :(Brain)
+
+  | Cell(F,V) ? Move(F) :(Brain)
+
+  | Closest(@,L) & Cell(L,V) ? Turn(L) :(Brain)
+  | Closest(@,R) & Cell(R,V) ? Turn(R) :(Brain)
+
+  | Cell(L,V) & Cell(R,V) ? 50% Turn(L) / 50% Turn(R) :(Brain)
+  | Cell(L,V) ? Turn(L) :(Brain)
+  | Cell(R,V) ? Turn(R) :(Brain)
+
+  | Closest(@,B) & Cell(B,V) ? Turn(B) :(Brain)
+  | Cell(B,V) ? Turn(B) :(Brain)
+
+  | True ? Rest :(Brain)
+}

@@ -1,0 +1,5 @@
+SpawnerLoadTest(Loop){
+
+  * (Loop):
+  | True ? Egg :(Loop)
+}

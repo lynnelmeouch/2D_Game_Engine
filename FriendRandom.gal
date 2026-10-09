@@ -1,0 +1,12 @@
+FriendRandom(Walk){
+
+  * (Walk):
+  | Cell(F,V) ? 60% Move(F) / 20% Turn(L) / 20% Turn(R) :(Walk)
+
+  | Cell(L,V) & Cell(R,V) ? 50% Turn(L) / 50% Turn(R) :(Walk)
+  | Cell(L,V) ? Turn(L) :(Walk)
+  | Cell(R,V) ? Turn(R) :(Walk)
+  | Cell(B,V) ? Turn(B) :(Walk)
+
+  | True ? Rest :(Walk)
+}
